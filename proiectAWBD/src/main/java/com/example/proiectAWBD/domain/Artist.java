@@ -16,6 +16,6 @@ public class Artist {
     private String recordLabel;
     private String website;
 
-//    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Product> productList;
+    @OneToMany(mappedBy = "artist", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> discography;
 }

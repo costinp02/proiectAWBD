@@ -14,9 +14,9 @@ public class Product {
     private String releaseDate;
     private String description;
     private String format;
+    private int quantity;
     @Enumerated(value = EnumType.STRING)
     private Genre genre;
-    private int quantity;
-//    @ManyToOne
-//    private Artist artist;
+    @ManyToOne
+    private Artist artist;
 }

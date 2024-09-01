@@ -3,6 +3,8 @@ package com.example.proiectAWBD.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 public class Customer {
@@ -15,6 +17,6 @@ public class Customer {
     private String password;
     private String firstName;
     private String lastName;
-//    @OneToMany(mappedBy = "user")
-//    private List<Address> addressList;
+    @OneToOne
+    private Address address;
 }
