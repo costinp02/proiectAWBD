@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArtistDTO {
-    private int id;
+    private Long id;
     private String name;
     private String nationality;
     private String recordLabel;

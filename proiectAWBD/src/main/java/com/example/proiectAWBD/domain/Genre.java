@@ -1,9 +1,18 @@
 package com.example.proiectAWBD.domain;
 
 public enum Genre {
-    HIPHOP,
-    ROCK,
-    METAL,
-    ALTROCK,
-    EDM
+    HIPHOP("Hip-Hop"),
+    ROCK("Rock"),
+    METAL("Metal"),
+    ALTROCK("Alt-Rock"),
+    EDM("EDM");
+
+    private final String description;
+
+    public String getDescription() {
+        return description;
+    }
+    Genre(String description) {
+        this.description = description;
+    }
 }
