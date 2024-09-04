@@ -33,6 +33,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<ProductDTO> findByArtistId(Long id) {
+        List<Product> products = new LinkedList<>();
+        productRepository.findByArtistId(id).iterator().forEachRemaining(products::add);
+
+        return products.stream()
+                .map(product -> mapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public ProductDTO findById(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (!productOptional.isPresent()) {

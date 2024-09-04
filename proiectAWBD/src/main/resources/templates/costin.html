@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Card</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .card {
+            background-color: white;
+            width: 250px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .card h3 {
+            font-size: 1em;
+            margin: 15px 0;
+            font-weight: normal;
+            color: #333;
+        }
+
+        .card p {
+            margin: 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+
+        .card .price {
+            font-size: 1.1em;
+            margin: 10px 0;
+            color: #000;
+            font-weight: bold;
+        }
+
+        .card .content {
+            padding: 15px;
+        }
+        .card h2{
+            opacity: 0;
+        }
+        .card:hover h3 {
+            opacity: 0;
+        }
+
+        .card:hover h2 {
+            opacity: 1;
+        }
+
+        .card:hover p {
+            opacity: 1;
+        }
+
+        .heart-icon {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 24px;
+            height: 24px;
+            background-color: white;
+            mask: url('path_to_heart_icon.svg') no-repeat center;
+            mask-size: contain;
+            -webkit-mask: url('path_to_heart_icon.svg') no-repeat center;
+            -webkit-mask-size: contain;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="heart-icon"></div>
+        <img src="/Users/sabina-mariapintilie/Desktop/PROIECT COSTIN/Screenshot 2024-09-04 at 09.34.28.png" alt="Pop Smoke - Meet The Woo V.1">
+        <div class="content">
+            <h3>Pop Smoke<br>Meet The Woo V.1 Mixtape LP (blue smoke vinyl)</h3>
+            <h2>Trap</h2>
+            <p class="price">199,00 lei</p>
+        </div>
+    </div>
+
+</body>
+</html>

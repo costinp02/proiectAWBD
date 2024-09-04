@@ -1,5 +1,6 @@
 package com.example.proiectAWBD.dtos;
 
+import com.example.proiectAWBD.domain.Artist;
 import com.example.proiectAWBD.domain.Genre;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,4 +20,5 @@ public class ProductDTO {
     private String format;
     private int discography;
     private Genre genre;
+    private Artist artist;
 }
