@@ -23,11 +23,11 @@
                     <a class="nav-link active" th:href="@{'/product'}">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/categories'}">Categories</a>
+                    <a class="nav-link" th:href="@{'/artists'}">Artists</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link btn-primary" th:href="@{'/product/form'}">
-                        <i class="fas fa-plus-circle"></i> Sell
+                        <i class="fas fa-plus-circle"></i> Cart
                     </a>
                 </li>
             </ul>
@@ -42,12 +42,33 @@
                         <i class="fas fa-user-plus"></i> Register
                     </a>
                 </li>
+                <li class="nav-item">
+                    <form id="logout-form" th:action="@{/logout}" method="post">
+                        <button type="submit" class="nav-link btn-primary">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </li>
             </ul>
         </div>
     </nav>
 </div>
 
 <div>
-    <p>test</p>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Product Details -->
+            <div class="col-md-6">
+                <h2 class="product-name" th:text="${product.name}">Product Name</h2>
+                <p class="artist-name" th:text="${product.artist.name}">Artist name</p>
+                <p class="price" th:text="${product.genre.getDescription()}">Genre</p>
+                <p class="price" th:text="${product.price + ' lei'}">Price</p>
+            </div>
+            <!-- Product Image -->
+            <div class="col-md-6 text-center">
+                    <img th:src="@{/missing_art.png}" th:alt="${product.name}">
+            </div>
+        </div>
+    </div>
 </div>
 </body>

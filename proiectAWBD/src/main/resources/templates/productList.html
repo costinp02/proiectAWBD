@@ -17,6 +17,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
+            flex-direction: column;
         }
 
         .card {
@@ -91,58 +92,71 @@
             -webkit-mask: url('heart.svg') no-repeat center;
             -webkit-mask-size: contain;
         }
+        .productList{
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="nav-link" th:href="@{'/'}"> <i class="fas fa-home mx-1"></i>  </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <div class="w-100">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="nav-link" th:href="@{'/'}"> <i class="fas fa-home mx-1"></i>  </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto topnav">
-                <li class="nav-item">
-                    <a class="nav-link active" th:href="@{'/product'}">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{'/categories'}">Categories</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-primary" th:href="@{'/product/form'}">
-                        <i class="fas fa-plus-circle"></i> Sell
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ms-auto topnav">
-                <li class="nav-item">
-                    <a class="nav-link btn-primary" th:href="@{'/login'}">
-                        <i class="fas fa-sign-in-alt"></i> Sign In
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link btn-primary" th:href="@{'/participant/form'}">
-                        <i class="fas fa-user-plus"></i> Register
-                    </a>
-                </li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto topnav">
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{'/product'}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{'/artists'}">Artists</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary" th:href="@{'/product/form'}">
+                            <i class="fas fa-plus-circle"></i> Cart
+                        </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto topnav">
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary" th:href="@{'/login'}">
+                            <i class="fas fa-sign-in-alt"></i> Sign In
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn-primary" th:href="@{'/participant/form'}">
+                            <i class="fas fa-user-plus"></i> Register
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <form id="logout-form" th:action="@{/logout}" method="post">
+                            <button type="submit" class="nav-link btn-primary">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+<div class="productList">
+    <div class="card" th:each="product, stat : ${products}" >
+        <div class="heart-icon"></div>
+        <a th:href="@{'/product/id=' + ${product.id}}" style="cursor: pointer;">
+            <img th:src="@{/missing_art.png}" th:alt="${product.name}">
+        </a>
+        <div class="content" >
+            <h3 th:text="${product.artist.name}">Artist Name</h3>
+            <h3 th:text="${product.name}">Album Name</h3>
+            <h2 th:text="${product.genre}">Genre</h2>
+            <p class="price" th:text="${product.price + ' lei'}">Price</p>
         </div>
-    </nav>
-</div>
-
-<div class="card" th:each="product, stat : ${products}" >
-    <div class="heart-icon"></div>
-    <a th:href="@{'/product/id=' + ${product.id}}" style="cursor: pointer;">
-        <img th:src="@{/missing_art.png}" th:alt="${product.name}">
-    </a>
-    <div class="content" >
-        <h3 th:text="${product.artist.name}">Artist Name</h3>
-        <h3 th:text="${product.name}">Album Name</h3>
-        <h2 th:text="${product.genre}">Genre</h2>
-        <p class="price" th:text="${product.price + ' lei'}">Price</p>
     </div>
 </div>
-
 </body>
 </html>
