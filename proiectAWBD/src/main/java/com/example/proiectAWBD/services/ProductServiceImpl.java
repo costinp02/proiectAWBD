@@ -43,6 +43,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public ProductDTO save(ProductDTO product) {
+        Product savedProduct = productRepository.save(mapper.map(product, Product.class));
+        return mapper.map(savedProduct, ProductDTO.class);
+    }
+
+    @Override
     public ProductDTO findById(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (!productOptional.isPresent()) {

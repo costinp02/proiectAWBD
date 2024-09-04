@@ -30,6 +30,7 @@ public class SecurityJpaConfig {
         return http
                 .authorizeRequests(auth -> auth
                         .requestMatchers("/product/form").hasRole("ADMIN")
+                        .requestMatchers("/product/admin").hasRole("ADMIN")
                         .requestMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll()
                         .requestMatchers("/product/*").hasAnyRole("ADMIN", "GUEST")
                         .requestMatchers("/categories/*").hasAnyRole("ADMIN", "GUEST")

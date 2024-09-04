@@ -8,4 +8,5 @@ public interface ProductService {
     List<ProductDTO> findAll();
     ProductDTO findById(Long id);
     List<ProductDTO> findByArtistId(Long id);
+    ProductDTO save(ProductDTO product);
 }

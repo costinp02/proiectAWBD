@@ -59,22 +59,33 @@
         </div>
     </nav>
 </div>
+<div class="container">
+    <table class="table table-hover ">
+        <thead class="thead-inverse">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Artist Name</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tr th:each="product, stat : ${products}"
+            th:class="${stat.odd}? 'table-light':''">
+            <td th:text="${product.id}">1</td>
+            <td th:text="${product.name}">Product 1</td>
+            <td th:text="${product.artist.name}">Artist Name</td>
+            <td th:text="${product.genre}">Genre</td>
+            <td th:text="${product.price}">Price</td>
+            <td><a href="#" th:href="@{'/product/edit/' + ${product.id}}"><i class="fa-solid fa-pen"></i></a></td>
+            <td><a href="#" th:href="@{'/product/delete/' + ${product.id}}"><i class="fa-solid fa-trash"></i></a></td>
+        </tr>
 
-<div>
-    <div class="container mt-5">
-        <div class="row">
-            <!-- Product Details -->
-            <div class="col-md-6">
-                <h2 class="product-name" th:text="${product.name}">Product Name</h2>
-                <p class="artist-name" th:text="${product.artist.name}">Artist name</p>
-                <p class="price" th:text="${product.genre.getDescription()}">Genre</p>
-                <p class="price" th:text="${product.price + ' lei'}">Price</p>
-            </div>
-            <!-- Product Image -->
-            <div class="col-md-6 text-center">
-                    <img th:src="@{/missing_art.png}" th:alt="${product.name}">
-            </div>
-        </div>
-    </div>
+    </table>
 </div>
+
+
 </body>
+</html>

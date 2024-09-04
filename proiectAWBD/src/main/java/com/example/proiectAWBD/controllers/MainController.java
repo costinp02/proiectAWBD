@@ -13,6 +13,12 @@ public class MainController {
         return new ModelAndView("main");
     }
 
+    @RequestMapping("admin")
+    public ModelAndView getAdminHome(){
+
+        return new ModelAndView("adminHome");
+    }
+
 
     @GetMapping("/login")
     public String showLogInForm(){ return "login"; }
