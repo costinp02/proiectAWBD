@@ -43,7 +43,7 @@
                         <br>
                         <div class="form-row">
                             <label th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Error</label>
-                            <input class="form-control" th:field="*{price}" type="number" placeholder="price"/>
+                            <input class="form-control" th:field="*{price}" type="text" placeholder="price"/>
                         </div>
                         <br>
                         <div class="form-row">

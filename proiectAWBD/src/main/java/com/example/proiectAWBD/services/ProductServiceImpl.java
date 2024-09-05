@@ -2,6 +2,7 @@ package com.example.proiectAWBD.services;
 
 import com.example.proiectAWBD.domain.Product;
 import com.example.proiectAWBD.dtos.ProductDTO;
+import com.example.proiectAWBD.exceptions.ResourceNotFoundException;
 import com.example.proiectAWBD.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Sort;
@@ -57,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTO findById(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (!productOptional.isPresent()) {
-            throw new RuntimeException("Product not found!");
+            throw new ResourceNotFoundException("Product with id " + id + " not found");
         }
         return mapper.map(productOptional.get(), ProductDTO.class);
     }

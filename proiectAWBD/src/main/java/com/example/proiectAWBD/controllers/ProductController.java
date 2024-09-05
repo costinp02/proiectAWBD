@@ -3,16 +3,15 @@ package com.example.proiectAWBD.controllers;
 import com.example.proiectAWBD.domain.Product;
 import com.example.proiectAWBD.dtos.ArtistDTO;
 import com.example.proiectAWBD.dtos.ProductDTO;
+import com.example.proiectAWBD.exceptions.ResourceNotFoundException;
 import com.example.proiectAWBD.services.ArtistService;
 import com.example.proiectAWBD.services.ProductService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -85,5 +84,14 @@ public class ProductController {
     public String deleteById(@PathVariable String id){
         productService.deleteById(Long.valueOf(id));
         return "redirect:/product/admin";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ModelAndView handlerNotFoundException(Exception exception){
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.getModel().put("exception",exception);
+        modelAndView.setViewName("notFoundException");
+        return modelAndView;
     }
 }
