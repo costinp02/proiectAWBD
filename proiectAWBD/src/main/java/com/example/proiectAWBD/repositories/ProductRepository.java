@@ -11,6 +11,7 @@ public interface ProductRepository extends PagingAndSortingRepository<Product, L
     Optional<Product> findById(Long id);
     Optional<Product> findByName(String name);
 
+    void deleteById(Long id);
     Product save(Product product);
 
     @Query("select p from Product p where p.artist.id = ?1")

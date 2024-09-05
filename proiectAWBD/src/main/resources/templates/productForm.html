@@ -60,6 +60,9 @@
     </nav>
 </div>
 <form enctype="multipart/form-data" method="post" th:action="@{/product}" th:object="${product}">
+    <input th:field="*{id}" type="hidden"/>
+    <input th:field="*{artist.id}" type="hidden"/>
+    <input th:field="*{format}" type="hidden"/>
     <div class="container" style="margin-top: 50px">
         <div class="panel panel-default">
             <div  class="panel-heading">

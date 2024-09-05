@@ -1,33 +1,16 @@
--- Drop foreign keys
-# ALTER TABLE customer DROP FOREIGN KEY FKglkhkmh2vyn790ijs6hiqqpi;
-# ALTER TABLE product DROP FOREIGN KEY FK9kvrcx7so145dw76x3sgvydr5;
-# ALTER TABLE purchase DROP FOREIGN KEY FK2pehe23hwdcyql94c531rbf70;
-# ALTER TABLE purchase_product DROP FOREIGN KEY FKl1da8u1v57wry7sunkkgmjr8o;
-# ALTER TABLE purchase_product DROP FOREIGN KEY FK1te3j5efipmc5c19wve8c90qd;
-
 -- Drop tables if they exist
-DROP TABLE IF EXISTS address;
-DROP TABLE IF EXISTS artist;
-DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS product;
-DROP TABLE IF EXISTS purchase;
 DROP TABLE IF EXISTS purchase_product;
+DROP TABLE IF EXISTS purchase;
+DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS address;
+DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS artist;
 DROP TABLE IF EXISTS USER_AUTHORITY;
 DROP TABLE IF EXISTS USER;
 DROP TABLE IF EXISTS AUTHORITY;
 
 
 -- Create tables
-CREATE TABLE address (
-                         id BIGINT NOT NULL AUTO_INCREMENT,
-                         city VARCHAR(255),
-                         country VARCHAR(255),
-                         state VARCHAR(255),
-                         street VARCHAR(255),
-                         zip VARCHAR(255),
-                         PRIMARY KEY (id)
-) ENGINE=InnoDB;
-
 
 CREATE TABLE USER(
                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -52,6 +35,16 @@ CREATE TABLE USER_AUTHORITY(
                                FOREIGN KEY (authority_id) REFERENCES AUTHORITY(id),
                                PRIMARY KEY (user_id, authority_id)
 );
+
+CREATE TABLE address (
+                         id BIGINT NOT NULL AUTO_INCREMENT,
+                         city VARCHAR(255),
+                         country VARCHAR(255),
+                         state VARCHAR(255),
+                         street VARCHAR(255),
+                         zip VARCHAR(255),
+                         PRIMARY KEY (id)
+) ENGINE=InnoDB;
 
 CREATE TABLE artist (
                         id BIGINT NOT NULL AUTO_INCREMENT,
@@ -82,7 +75,7 @@ CREATE TABLE product (
                          format VARCHAR(255),
                          name VARCHAR(255),
                          release_date VARCHAR(255),
-                         genre ENUM ('ALTROCK','EDM','HIPHOP','METAL','ROCK'),
+                         genre ENUM ('ALTROCK','EDM','HIPHOP','METAL','ROCK', 'POP'),
                          PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
