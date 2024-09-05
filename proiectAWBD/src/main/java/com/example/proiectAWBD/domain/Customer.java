@@ -1,5 +1,6 @@
 package com.example.proiectAWBD.domain;
 
+import com.example.proiectAWBD.domain.security.User;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,4 +20,9 @@ public class Customer {
     private String lastName;
     @OneToOne
     private Address address;
+    @OneToOne
+    private Wishlist wishlist;
+    @OneToOne
+    @JoinColumn(columnDefinition = "long", name = "user_id")
+    private User user;
 }

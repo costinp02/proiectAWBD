@@ -2,6 +2,8 @@
 DROP TABLE IF EXISTS purchase_product;
 DROP TABLE IF EXISTS purchase;
 DROP TABLE IF EXISTS customer;
+DROP TABLE IF EXISTS wishlist_product;
+DROP TABLE IF EXISTS wishlist;
 DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS artist;
@@ -16,7 +18,7 @@ CREATE TABLE USER(
                      id BIGINT AUTO_INCREMENT PRIMARY KEY,
                      username VARCHAR(50) NOT NULL,
                      password VARCHAR(100) NOT NULL,
-                     email VARCHAR(50) NOT NULL,
+                     email VARCHAR(100) DEFAULT NULL,
                      enabled BOOLEAN NOT NULL DEFAULT true,
                      account_non_expired BOOLEAN NOT NULL DEFAULT true,
                      account_non_locked BOOLEAN NOT NULL DEFAULT true,
@@ -36,76 +38,89 @@ CREATE TABLE USER_AUTHORITY(
                                PRIMARY KEY (user_id, authority_id)
 );
 
-CREATE TABLE address (
-                         id BIGINT NOT NULL AUTO_INCREMENT,
-                         city VARCHAR(255),
-                         country VARCHAR(255),
-                         state VARCHAR(255),
-                         street VARCHAR(255),
-                         zip VARCHAR(255),
-                         PRIMARY KEY (id)
+CREATE TABLE `address` (
+                   `id` bigint NOT NULL AUTO_INCREMENT,
+                   `city` varchar(255) DEFAULT NULL,
+                   `country` varchar(255) DEFAULT NULL,
+                   `state` varchar(255) DEFAULT NULL,
+                   `street` varchar(255) DEFAULT NULL,
+                   `zip_code` varchar(255) DEFAULT NULL,
+                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
-CREATE TABLE artist (
-                        id BIGINT NOT NULL AUTO_INCREMENT,
-                        name VARCHAR(255),
-                        nationality VARCHAR(255),
-                        record_label VARCHAR(255),
-                        website VARCHAR(255),
-                        PRIMARY KEY (id)
+CREATE TABLE `artist` (
+                  `id` bigint NOT NULL AUTO_INCREMENT,
+                  `artist_name` varchar(255) DEFAULT NULL,
+                  `nationality` varchar(255) DEFAULT NULL,
+                  `record_label` varchar(255) DEFAULT NULL,
+                  `website_url` varchar(255) DEFAULT NULL,
+                  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
-CREATE TABLE customer (
-                          address_id BIGINT,
-                          id BIGINT NOT NULL AUTO_INCREMENT,
-                          email VARCHAR(255),
-                          first_name VARCHAR(255),
-                          last_name VARCHAR(255),
-                          password VARCHAR(255),
-                          username VARCHAR(255),
-                          PRIMARY KEY (id)
-) ENGINE=InnoDB;
+CREATE TABLE `wishlist` (
+                            `id` bigint NOT NULL AUTO_INCREMENT,
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB ;
 
-CREATE TABLE product (
-                         price FLOAT(53) NOT NULL,
-                         quantity INTEGER NOT NULL,
-                         artist_id BIGINT,
-                         id BIGINT NOT NULL AUTO_INCREMENT,
-                         description VARCHAR(255),
-                         format VARCHAR(255),
-                         name VARCHAR(255),
-                         release_date VARCHAR(255),
-                         genre ENUM ('ALTROCK','EDM','HIPHOP','METAL','ROCK', 'POP'),
-                         PRIMARY KEY (id)
-) ENGINE=InnoDB;
+CREATE TABLE `customer` (
+                `id` bigint NOT NULL AUTO_INCREMENT,
+                `email` varchar(255) DEFAULT NULL,
+                `first_name` varchar(255) DEFAULT NULL,
+                `last_name` varchar(255) DEFAULT NULL,
+                `password` varchar(255) DEFAULT NULL,
+                `username` varchar(255) DEFAULT NULL,
+                `user_id` bigint DEFAULT NULL,
+                `wishlist_id` bigint DEFAULT NULL,
+                `address_id` bigint DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                UNIQUE KEY `UK_customer_address` (`address_id`),
+                UNIQUE KEY `UK_customer_user` (`user_id`),
+                UNIQUE KEY `UK_customer_wishlist` (`wishlist_id`),
+                CONSTRAINT `FK_customer_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`),
+                CONSTRAINT `FK_customer_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+                CONSTRAINT `FK_customer_wishlist` FOREIGN KEY (`wishlist_id`) REFERENCES `wishlist` (`id`)
+) ENGINE=InnoDB ;
 
-CREATE TABLE purchase (
-                          customer_id BIGINT,
-                          id BIGINT NOT NULL AUTO_INCREMENT,
-                          purchase_date DATETIME(6),
-                          PRIMARY KEY (id)
-) ENGINE=InnoDB;
+CREATE TABLE `product` (
+               `id` bigint NOT NULL AUTO_INCREMENT,
+               `price` double NOT NULL,
+               `quantity` int NOT NULL,
+               `artist_id` bigint DEFAULT NULL,
+               `description` varchar(255) DEFAULT NULL,
+               `format` varchar(255) DEFAULT NULL,
+               `product_name` varchar(255) DEFAULT NULL,
+               `release_date` varchar(255) DEFAULT NULL,
+               `genre` enum('ALTROCK','EDM','HIPHOP','METAL','ROCK','POP') DEFAULT NULL,
+               PRIMARY KEY (`id`),
+               KEY `FK_product_artist` (`artist_id`),
+               CONSTRAINT `FK_product_artist` FOREIGN KEY (`artist_id`) REFERENCES `artist` (`id`)
+) ENGINE=InnoDB ;
 
-CREATE TABLE purchase_product (
-                                  product_id BIGINT NOT NULL,
-                                  purchase_id BIGINT NOT NULL
-) ENGINE=InnoDB;
+CREATE TABLE `purchase` (
+                `id` bigint NOT NULL AUTO_INCREMENT,
+                `customer_id` bigint DEFAULT NULL,
+                `purchase_date` datetime(6) DEFAULT NULL,
+                PRIMARY KEY (`id`),
+                KEY `FK_purchase_customer` (`customer_id`),
+                CONSTRAINT `FK_purchase_customer` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`)
+) ENGINE=InnoDB ;
 
--- Add constraints
-ALTER TABLE customer
-    ADD CONSTRAINT UKr8whbd0mf9er6vwfr0sclsxkd UNIQUE (address_id);
+CREATE TABLE `purchase_product` (
+                `product_id` bigint NOT NULL,
+                `purchase_id` bigint NOT NULL,
+                KEY `FK_purchase_product_product` (`product_id`),
+                KEY `FK_purchase_product_purchase` (`purchase_id`),
+                CONSTRAINT `FK_purchase_product_purchase` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`id`),
+                CONSTRAINT `FK_purchase_product_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB ;
 
-ALTER TABLE customer
-    ADD CONSTRAINT FKglkhkmh2vyn790ijs6hiqqpi FOREIGN KEY (address_id) REFERENCES address (id);
 
-ALTER TABLE product
-    ADD CONSTRAINT FK9kvrcx7so145dw76x3sgvydr5 FOREIGN KEY (artist_id) REFERENCES artist (id);
+CREATE TABLE `wishlist_product` (
+            `wishlist_id` bigint NOT NULL,
+            `product_id` bigint NOT NULL,
+            KEY `FK_wishlist_product_product` (`product_id`),
+            KEY `FK_wishlist_product_wishlist` (`wishlist_id`),
+            CONSTRAINT `FK_wishlist_product_wishlist` FOREIGN KEY (`wishlist_id`) REFERENCES `wishlist` (`id`),
+            CONSTRAINT `FK_wishlist_product_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+) ENGINE=InnoDB ;
 
-ALTER TABLE purchase
-    ADD CONSTRAINT FK2pehe23hwdcyql94c531rbf70 FOREIGN KEY (customer_id) REFERENCES customer (id);
-
-ALTER TABLE purchase_product
-    ADD CONSTRAINT FKl1da8u1v57wry7sunkkgmjr8o FOREIGN KEY (product_id) REFERENCES product (id);
-
-ALTER TABLE purchase_product
-    ADD CONSTRAINT FK1te3j5efipmc5c19wve8c90qd FOREIGN KEY (purchase_id) REFERENCES purchase (id);

@@ -1,31 +1,42 @@
-INSERT INTO address (city, country, state, street, zip) VALUES ('New York', 'USA', 'NY', '123 Broadway', '10001');
-INSERT INTO address (city, country, state, street, zip) VALUES ('Los Angeles', 'USA', 'CA', '456 Hollywood Blvd', '90028');
-INSERT INTO address (city, country, state, street, zip) VALUES ('Chicago', 'USA', 'IL', '789 Michigan Ave', '60611');
-INSERT INTO address (city, country, state, street, zip) VALUES ('Miami', 'USA', 'FL', '101 Ocean Dr', '33139');
-INSERT INTO address (city, country, state, street, zip) VALUES ('Dallas', 'USA', 'TX', '202 Elm St', '75201');
+-- Inserting into address table
+INSERT INTO `address` (`city`, `country`, `state`, `street`, `zip_code`)
+VALUES ('New York', 'USA', 'NY', '123 Main St', '10001'),
+       ('Los Angeles', 'USA', 'CA', '456 Hollywood Blvd', '90001'),
+       ('Chicago', 'USA', 'IL', '789 Windy Ave', '60601');
 
-INSERT INTO artist (name, nationality, record_label, website) VALUES ('The Beatles', 'British', 'EMI', 'www.thebeatles.com');
-INSERT INTO artist (name, nationality, record_label, website) VALUES ('Nirvana', 'American', 'DGC', 'www.nirvana.com');
-INSERT INTO artist (name, nationality, record_label, website) VALUES ('Beyoncé', 'American', 'Parkwood', 'www.beyonce.com');
-INSERT INTO artist (name, nationality, record_label, website) VALUES ('Daft Punk', 'French', 'Virgin', 'www.daftpunk.com');
-INSERT INTO artist (name, nationality, record_label, website) VALUES ('Adele', 'British', 'XL', 'www.adele.com');
+-- Inserting into artist table
+INSERT INTO `artist` (`artist_name`, `nationality`, `record_label`, `website_url`)
+VALUES ('Kanye West', 'American', 'GOOD Music', 'https://yeezy.com'),
+       ('The Weeknd', 'Canadian', 'XO', 'https://theweeknd.com'),
+       ('Kendrick Lamar', 'American', 'pgLang', 'https://pg-lang.com'),
+       ('Yves Tumor', 'American', 'Warped', 'https://yvestumor.com');
 
+-- Inserting into wishlist table
+INSERT INTO `wishlist` (`id`)
+VALUES (1),
+       (2);
 
+-- Inserting into customer table
+INSERT INTO `customer` (`email`, `first_name`, `last_name`, `password`, `username`, `user_id`, `wishlist_id`, `address_id`)
+VALUES ('john@example.com', 'John', 'Doe', 'password123', 'john_doe', null, 1, 1);
 
-INSERT INTO customer (address_id, email, first_name, last_name, password, username) VALUES (1, 'john.doe@example.com', 'John', 'Doe', 'password123', 'johndoe');
-INSERT INTO customer (address_id, email, first_name, last_name, password, username) VALUES (2, 'jane.smith@example.com', 'Jane', 'Smith', 'password456', 'janesmith');
-INSERT INTO customer (address_id, email, first_name, last_name, password, username) VALUES (3, 'mike.jones@example.com', 'Mike', 'Jones', 'password789', 'mikejones');
-INSERT INTO customer (address_id, email, first_name, last_name, password, username) VALUES (4, 'lisa.wong@example.com', 'Lisa', 'Wong', 'passwordabc', 'lisawong');
-INSERT INTO customer (address_id, email, first_name, last_name, password, username) VALUES (5, 'tom.brown@example.com', 'Tom', 'Brown', 'passwordxyz', 'tombrown');
+-- Inserting into product table
+INSERT INTO `product` (`price`, `quantity`, `artist_id`, `description`, `format`, `product_name`, `release_date`, `genre`)
+VALUES (29.99, 100, 1, '', 'CD', '808s & Heartbreak', '2008-11-23', 'HIPHOP'),
+       (19.99, 150, 2, '', 'Vinyl', 'After Hours', '2020-03-20', 'POP'),
+       (15.99, 200, 4, '', 'Vinyl 7"', 'Heaven To A Tortured Mind', '2020-04-03', 'ALTROCK'),
+       (15.99, 200, 3, '', 'Vinyl', 'Mr. Morale & the Big Steppers', '2022-05-13', 'HIPHOP');
 
+-- Inserting into purchase table
+INSERT INTO `purchase` (`customer_id`, `purchase_date`)
+VALUES (1, '2023-09-01 10:30:00');
 
-INSERT INTO product (price, quantity, artist_id, description, format, name, release_date, genre)
-VALUES (19.99, 100, 1, 'Classic rock album', 'CD', 'Abbey Road', '1969-09-26', 'ROCK');
-INSERT INTO product (price, quantity, artist_id, description, format, name, release_date, genre)
-VALUES (14.99, 200, 2, 'Grunge album', 'Vinyl', 'Nevermind', '1991-09-24', 'ALTROCK');
-INSERT INTO product (price, quantity, artist_id, description, format, name, release_date, genre)
-VALUES (12.99, 150, 3, 'Pop album', 'Digital', 'Lemonade', '2016-04-23', 'HIPHOP');
-INSERT INTO product (price, quantity, artist_id, description, format, name, release_date, genre)
-VALUES (18.99, 50, 4, 'Electronic album', 'CD', 'Random Access Memories', '2013-05-17', 'EDM');
-INSERT INTO product (price, quantity, artist_id, description, format, name, release_date, genre)
-VALUES (15.99, 75, 5, 'Pop album', 'Vinyl', '21', '2011-01-24', 'ROCK');
+-- Inserting into purchase_product table
+INSERT INTO `purchase_product` (`product_id`, `purchase_id`)
+VALUES (1, 1),
+       (3, 1);
+
+-- Inserting into wishlist_product table
+INSERT INTO `wishlist_product` (`wishlist_id`, `product_id`)
+VALUES (1, 1),
+       (1, 2);
