@@ -23,6 +23,7 @@
             <th>Website</th>
             <th></th>
             <th></th>
+            <th><a href="#" th:href="@{'/artist/form'}" title="Add new artist"><i class="fa-solid fa-plus" style="color: green"></i></a></th>
         </tr>
         </thead>
         <tr th:each="artist, stat : ${artists}"
@@ -32,9 +33,9 @@
             <td th:text="${artist.nationality}">Code</td>
             <td th:text="${artist.recordLabel}">Reserved price</td>
             <td th:text="${artist.website}">Best offer</td>
-            <td><a href="#" th:href="@{'/product/artistId=' + ${artist.id}}"><i class="fa-solid fa-compact-disc"></i></a></td>
-            <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/artist/edit/' + ${artist.id}}"><i class="fa-solid fa-pen"></i></a></td>
-            <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/artist/delete/' + ${artist.id}}"><i class="fa-solid fa-trash"></i></a></td>
+            <td><a href="#" th:href="@{'/product/artistId=' + ${artist.id}}" title="View artist albums"><i class="fa-solid fa-compact-disc"></i></a></td>
+            <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/artist/edit/' + ${artist.id}}" title="Edit artist"><i class="fa-solid fa-pen" style="color: yellow"></i></a></td>
+            <td sec:authorize="hasRole('ADMIN')"><a href="#" th:href="@{'/artist/delete/' + ${artist.id}}" title="Delete artist"><i class="fa-solid fa-trash" style="color: red"></i></a></td>
         </tr>
 
     </table>

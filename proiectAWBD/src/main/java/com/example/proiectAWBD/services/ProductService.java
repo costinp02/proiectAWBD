@@ -9,4 +9,5 @@ public interface ProductService {
     ProductDTO findById(Long id);
     List<ProductDTO> findByArtistId(Long id);
     ProductDTO save(ProductDTO product);
+    void deleteById(Long id);
 }

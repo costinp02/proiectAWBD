@@ -22,7 +22,7 @@
             <th>Genre</th>
             <th>Price</th>
             <th></th>
-            <th></th>
+            <th><a href="#" th:href="@{'/product/form'}" title="Add new product"><i class="fa-solid fa-plus" style="color: green"></i></a></th>
         </tr>
         </thead>
         <tr th:each="product, stat : ${products}"

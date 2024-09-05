@@ -120,7 +120,11 @@ CREATE TABLE `wishlist_product` (
             `product_id` bigint NOT NULL,
             KEY `FK_wishlist_product_product` (`product_id`),
             KEY `FK_wishlist_product_wishlist` (`wishlist_id`),
-            CONSTRAINT `FK_wishlist_product_wishlist` FOREIGN KEY (`wishlist_id`) REFERENCES `wishlist` (`id`),
+            CONSTRAINT `FK_wishlist_product_wishlist` FOREIGN KEY (`wishlist_id`) REFERENCES `wishlist` (`id`)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE,
             CONSTRAINT `FK_wishlist_product_product` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`)
+                ON DELETE CASCADE
+                ON UPDATE CASCADE
 ) ENGINE=InnoDB ;
 

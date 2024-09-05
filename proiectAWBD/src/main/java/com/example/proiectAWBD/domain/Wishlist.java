@@ -20,7 +20,7 @@ public class Wishlist {
     private Long id;
     @OneToOne(mappedBy = "wishlist")
     private Customer customer;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "wishlist_product",
             joinColumns = @JoinColumn(name = "wishlist_id"),

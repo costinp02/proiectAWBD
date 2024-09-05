@@ -49,6 +49,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        productRepository.deleteById(id);
+    }
+
+    @Override
     public ProductDTO findById(Long id) {
         Optional<Product> productOptional = productRepository.findById(id);
         if (!productOptional.isPresent()) {

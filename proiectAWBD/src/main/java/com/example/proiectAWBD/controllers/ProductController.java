@@ -1,7 +1,12 @@
 package com.example.proiectAWBD.controllers;
 
+import com.example.proiectAWBD.domain.Product;
+import com.example.proiectAWBD.dtos.ArtistDTO;
 import com.example.proiectAWBD.dtos.ProductDTO;
+import com.example.proiectAWBD.services.ArtistService;
 import com.example.proiectAWBD.services.ProductService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -17,9 +22,11 @@ import java.util.List;
 public class ProductController {
 
     ProductService productService;
+    ArtistService artistService;
 
-    public ProductController(ProductService productService) {
+    public ProductController(ProductService productService, ArtistService artistService) {
         this.productService = productService;
+        this.artistService = artistService;
     }
 
     @RequestMapping("")
@@ -52,12 +59,31 @@ public class ProductController {
     @RequestMapping("/edit/{id}")
     public String productEdit(@PathVariable Long id, Model model) {
         model.addAttribute("product", productService.findById(id));
+
+        List<ArtistDTO> artists = artistService.findAll();
+        model.addAttribute("artists", artists);
+        return "productForm";
+    }
+
+    @RequestMapping("/form")
+    public String productForm(Model model) {
+        Product product = new Product();
+        product.setArtist(null);
+        model.addAttribute("product", product);
+        List<ArtistDTO> artists = artistService.findAll();
+        model.addAttribute("artists", artists);
         return "productForm";
     }
 
     @PostMapping("")
     public String saveOrUpdate(@ModelAttribute ProductDTO productDTO) {
         productService.save(productDTO);
+        return "redirect:/product/admin";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteById(@PathVariable String id){
+        productService.deleteById(Long.valueOf(id));
         return "redirect:/product/admin";
     }
 }
