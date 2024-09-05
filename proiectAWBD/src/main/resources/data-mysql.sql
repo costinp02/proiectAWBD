@@ -5,7 +5,7 @@ VALUES ('New York', 'USA', 'NY', '123 Main St', '10001'),
        ('Chicago', 'USA', 'IL', '789 Windy Ave', '60601');
 
 -- Inserting into artist table
-INSERT INTO `artist` (`artist_name`, `nationality`, `record_label`, `website_url`)
+INSERT INTO `artist` (`name`, `nationality`, `record_label`, `website`)
 VALUES ('Kanye West', 'American', 'GOOD Music', 'https://yeezy.com'),
        ('The Weeknd', 'Canadian', 'XO', 'https://theweeknd.com'),
        ('Kendrick Lamar', 'American', 'pgLang', 'https://pg-lang.com'),
@@ -21,7 +21,7 @@ INSERT INTO `customer` (`email`, `first_name`, `last_name`, `password`, `usernam
 VALUES ('john@example.com', 'John', 'Doe', 'password123', 'john_doe', null, 1, 1);
 
 -- Inserting into product table
-INSERT INTO `product` (`price`, `quantity`, `artist_id`, `description`, `format`, `product_name`, `release_date`, `genre`)
+INSERT INTO `product` (`price`, `quantity`, `artist_id`, `description`, `format`, `name`, `release_date`, `genre`)
 VALUES (29.99, 100, 1, '', 'CD', '808s & Heartbreak', '2008-11-23', 'HIPHOP'),
        (19.99, 150, 2, '', 'Vinyl', 'After Hours', '2020-03-20', 'POP'),
        (15.99, 200, 4, '', 'Vinyl 7"', 'Heaven To A Tortured Mind', '2020-04-03', 'ALTROCK'),

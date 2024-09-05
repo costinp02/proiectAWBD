@@ -50,10 +50,10 @@ CREATE TABLE `address` (
 
 CREATE TABLE `artist` (
                   `id` bigint NOT NULL AUTO_INCREMENT,
-                  `artist_name` varchar(255) DEFAULT NULL,
+                  `name` varchar(255) DEFAULT NULL,
                   `nationality` varchar(255) DEFAULT NULL,
                   `record_label` varchar(255) DEFAULT NULL,
-                  `website_url` varchar(255) DEFAULT NULL,
+                  `website` varchar(255) DEFAULT NULL,
                   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB;
 
@@ -88,7 +88,7 @@ CREATE TABLE `product` (
                `artist_id` bigint DEFAULT NULL,
                `description` varchar(255) DEFAULT NULL,
                `format` varchar(255) DEFAULT NULL,
-               `product_name` varchar(255) DEFAULT NULL,
+               `name` varchar(255) DEFAULT NULL,
                `release_date` varchar(255) DEFAULT NULL,
                `genre` enum('ALTROCK','EDM','HIPHOP','METAL','ROCK','POP') DEFAULT NULL,
                PRIMARY KEY (`id`),
